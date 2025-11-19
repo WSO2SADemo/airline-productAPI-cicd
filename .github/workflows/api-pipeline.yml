@@ -25,7 +25,7 @@ jobs:
           # Optional: Verify the entry
           echo "Hosts file content after addition:"
           cat /etc/hosts
-          
+
       - name: Install apictl
         run: |
           wget https://github.com/wso2/product-apim-tooling/releases/download/v4.6.0/apictl-4.6.0-linux-amd64.tar.gz
@@ -43,7 +43,7 @@ jobs:
 
       - name: Import API to Dev
         run: |
-          apictl import api -f dev/ShopKartAPI/ -e dev --preserve-provider=false --update --insecure
+          apictl import api -f dev/ProductAPI/ -e dev --preserve-provider=false --update --insecure
 
       - name: Run Tests (Optional)
         run: |
