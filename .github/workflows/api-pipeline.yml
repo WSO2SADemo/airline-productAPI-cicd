@@ -16,6 +16,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Add etc/hosts entry for airbus.am.wso2.com 🌐
+        run: |
+          # Format: IP Address    Hostname(s)
+          # 'tee -a' appends the line to /etc/hosts using sudo privileges.
+          echo '135.235.250.243 airbus.am.wso2.com' | sudo tee -a /etc/hosts
+          
+          # Optional: Verify the entry
+          echo "Hosts file content after addition:"
+          cat /etc/hosts
+          
       - name: Install apictl
         run: |
           wget https://github.com/wso2/product-apim-tooling/releases/download/v4.6.0/apictl-4.6.0-linux-amd64.tar.gz
