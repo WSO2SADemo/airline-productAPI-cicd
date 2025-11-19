@@ -1,0 +1,131 @@
+// This is a Jenkins Pipeline script
+pipeline {
+    agent any
+
+    environment {
+        // In a real project, credentials should be stored securely in Jenkins
+        APIM_USERNAME = 'admin'
+        APIM_PASSWORD = 'admin'
+        // Jenkins sets HOME automatically; WORKSPACE points to the repo root
+        RULESET     = "${env.WORKSPACE}/.spectral.yml"
+        SPEC_PATH   = "${env.WORKSPACE}/SampleAPI/Definitions/swagger.yaml"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo "Checking out code from the repository..."
+                git url: 'https://github.com/shashikab/CICDPOC.git', branch: 'test'
+            }
+        }
+
+        stage('Install apictl') {
+            steps {
+                echo "Installing the apictl tool..."
+                sh '''
+                    # Download the apictl binary
+                    curl -L -o apictl.tar.gz \
+                         "https://github.com/wso2/product-apim-tooling/releases/download/v4.5.0/apictl-4.5.0-darwin-arm64.tar.gz"
+
+                    # Extract to temp folder
+                    mkdir -p /tmp/apictl
+                    tar -xzvf apictl.tar.gz -C /tmp/apictl
+
+                    # Locate and move the binary
+                    if [ -f "/tmp/apictl/apictl" ]; then
+                        mv /tmp/apictl/apictl ~/apictl
+                    elif [ -f "/tmp/apictl/apictl/apictl" ]; then
+                        mv /tmp/apictl/apictl/apictl ~/apictl
+                    else
+                        echo "apictl binary not found!"
+                        exit 1
+                    fi
+
+                    chmod +x ~/apictl
+                    export PATH=~/apictl:$PATH
+                    ~/apictl version
+                '''
+            }
+        }
+
+        stage('Configure APIM Environment') {
+            steps {
+                echo "Configuring the APIM environment..."
+                sh '''
+                    # Cleanup previous environment
+                    ~/apictl remove env test || true
+
+                    export APICLIENT_TIMEOUT=120
+
+                    # Add the 'test' environment
+                    ~/apictl add env test --apim https://localhost:9453
+                '''
+            }
+        }
+
+        stage('Login to APIM test') {
+            steps {
+                echo "Logging in to APIM..."
+                sh '''
+                    echo "${APIM_PASSWORD}" | \
+                    ~/apictl login test --insecure -u ${APIM_USERNAME} --password-stdin -k
+                '''
+            }
+        }
+
+        stage('Validate API to test') {
+            steps {
+                echo "Running dry-run validation of API…"
+                script {
+                    def output = sh(
+                        script: '''
+                            set -e
+                            for api in *API-*/; do
+                                dir=${api%/}
+                                echo "Validating $dir"
+                                ~/apictl import api --file "$dir" \
+                                                    --environment test \
+                                                    --update \
+                                                    --rotate-revision \
+                                                    -k \
+                                                    --dry-run
+                            done
+                        ''',
+                        returnStdout: true
+                    ).trim()
+                    echo output
+
+                    if (output.toLowerCase().contains("error")) {
+                        error("Dry-run validation failed — found ERROR")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy APIs to test') {
+            steps {
+                echo "Importing API projects from directories…"
+                dir("/Users/shashika/.jenkins/workspace/Job_4_pub_test") {
+                    sh '''
+                        set -e
+                        for api in *API-*/; do
+                            dir=${api%/}
+                            echo "Importing $dir"
+                            ~/apictl import api --file "$dir" \
+                                                --environment test \
+                                                --update \
+                                                --rotate-revision \
+                                                -k
+                        done
+                    '''
+                }
+            }
+        }
+    } // end of stages
+
+    post {
+        always {
+            echo "Jenkins Pipeline execution completed."
+        }
+    }
+} // end of pipeline
