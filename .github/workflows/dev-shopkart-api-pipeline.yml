@@ -6,7 +6,7 @@ on:
       - 'ShopKartProductAPI/**'
       - '.github/workflows/dev-shopkart-api-pipeline.yml'
     branches:
-      - main
+      - dev
 
 jobs:
   deploy-api-dev:
