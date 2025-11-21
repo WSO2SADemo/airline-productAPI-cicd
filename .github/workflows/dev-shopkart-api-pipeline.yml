@@ -16,11 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Add etc/hosts entry for airbus.am.wso2.com 🌐
+      - name: Add etc/hosts entry for dev.airbus.am.wso2.com 🌐
         run: |
           # Format: IP Address    Hostname(s)
           # 'tee -a' appends the line to /etc/hosts using sudo privileges.
-          echo '135.235.250.243 airbus.am.wso2.com' | sudo tee -a /etc/hosts
+          echo '20.6.64.200 dev.airbus.am.wso2.com' | sudo tee -a /etc/hosts
           
           # Optional: Verify the entry
           echo "Hosts file content after addition:"

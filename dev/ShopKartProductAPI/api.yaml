@@ -18,6 +18,6 @@ data:
   endpointConfig:
     endpoint_type: http
     production_endpoints:
-      url: https://61038a4279ed680017482530.mockapi.io/products/get
+      url: http://61038a4279ed680017482530.mockapi.io/products/get
   endpointImplementationType: ENDPOINT
   websubSubscriptionConfiguration: null
