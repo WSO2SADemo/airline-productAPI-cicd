@@ -2,9 +2,8 @@ name: WSO2 API CI/CD
 on:
   push:
     paths:
-      - 'dev/**'
       - 'prod/**'
-      - '.github/workflows/**'
+      - '.github/workflows/prod-shopkart-api-pipeline.yml'
     branches:
       - main
 
