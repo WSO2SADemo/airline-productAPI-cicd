@@ -2,10 +2,10 @@ name: WSO2 API CI/CD
 on:
   push:
     paths:
-      - 'prod/**'
-      - '.github/workflows/prod-shopkart-api-pipeline.yml'
+      - 'AirlineProductAPI/**'
+      - '.github/workflows/airline-api-pipeline.yml'
     branches:
-      - main
+      - prod
 
 jobs:
   deploy-api-dev:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Add etc/hosts entry for airbus.am.wso2.com 🌐
+      - name: Add etc/hosts entry for dev.airbus.am.wso2.com 🌐
         run: |
           # Format: IP Address    Hostname(s)
           # 'tee -a' appends the line to /etc/hosts using sudo privileges.
@@ -34,7 +34,7 @@ jobs:
 
       - name: Add Dev Environment
         run: |
-          apictl add env dev --apim https://${{ secrets.WSO2_PROD_APIM }}
+          apictl add env dev --apim https://${{ secrets.WSO2_APIM }}
 
       - name: Login to Dev
         run: |
@@ -42,12 +42,12 @@ jobs:
 
       - name: Import API to Dev
         run: |
-          apictl import api -f dev/ProductAPI/ -e dev --preserve-provider=false --update --insecure
+          apictl import api -f AirlineProductAPI/ -e dev --preserve-provider=false --update --insecure
 
       - name: Run Tests (Optional)
         run: |
-          apictl get apis -e dev --insecure | awk 'NR>1 {print}' | grep -E "ShopKartProductAPI" || {
-            echo "ShopKartProductAPI not found in Publisher (dev)."
+          apictl get apis -e dev --insecure | awk 'NR>1 {print}' | grep -E "AirlineProductAPI" || {
+            echo "AirlineProductAPI not found in Publisher (dev)."
             exit 1
           }
-          echo "ShopKartProductAPI is present in Publisher (dev)"
+          echo "AirlineProductAPI is present in Publisher (dev)"
