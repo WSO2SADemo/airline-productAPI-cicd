@@ -2,9 +2,8 @@ name: WSO2 API CI/CD
 on:
   push:
     paths:
-      - 'dev/**'
-      - 'ShopKartProductAPI/**'
-      - '.github/workflows/dev-shopkart-api-pipeline.yml'
+      - 'AirlineProductAPI/**'
+      - '.github/workflows/airline-api-pipeline.yml'
     branches:
       - dev
 
@@ -43,12 +42,12 @@ jobs:
 
       - name: Import API to Dev
         run: |
-          apictl import api -f ShopKartProductAPI/ -e dev --preserve-provider=false --update --insecure
+          apictl import api -f AirlineProductAPI/ -e dev --preserve-provider=false --update --insecure
 
       - name: Run Tests (Optional)
         run: |
-          apictl get apis -e dev --insecure | awk 'NR>1 {print}' | grep -E "ShopKartProductAPI" || {
-            echo "ShopKartProductAPI not found in Publisher (dev)."
+          apictl get apis -e dev --insecure | awk 'NR>1 {print}' | grep -E "AirlineProductAPI" || {
+            echo "AirlineProductAPI not found in Publisher (dev)."
             exit 1
           }
-          echo "ShopKartProductAPI is present in Publisher (dev)"
+          echo "AirlineProductAPI is present in Publisher (dev)"
