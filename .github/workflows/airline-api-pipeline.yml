@@ -42,45 +42,7 @@ jobs:
 
       - name: Import API to Dev
         run: |
-          apictl import api -f AirlineProductAPI/ -e dev --preserve-provider=false --update --insecure
-
-      - name: Wait for API Revision (10s Check) ⏳
-        id: wait_for_api
-        run: |
-          API_NAME="AirlineProductAPI"
-          API_VERSION="1.0.0"
-          ENVIRONMENT="dev"
-          MAX_WAIT_TIME=10  # Maximum time to wait (seconds)
-          SLEEP_INTERVAL=2  # How often to check (seconds)
-          ELAPSED_TIME=0
-          echo "Waiting for API '${API_NAME}' revision to appear (max ${MAX_WAIT_TIME}s)..."
-          
-          # The loop checks for a successful output from get-api-revisions
-          while [ ${ELAPSED_TIME} -lt ${MAX_WAIT_TIME} ]; do
-              # The 'apictl get api-revisions' command will fail if the API isn't fully ready or if there are no revisions yet.
-              # We use '|| true' to prevent the step from failing immediately.
-              REVISION_OUTPUT=$(apictl get api-revisions -n ${API_NAME} -v ${API_VERSION} -e ${ENVIRONMENT} --insecure 2>&1)
-              
-              # Check if the output contains the expected API name (indicating success)
-              if echo "${REVISION_OUTPUT}" | grep -q "${API_NAME}"; then
-                  echo "API revision found after ${ELAPSED_TIME}s."
-                  exit 0
-              fi
-              
-              echo "Revisions not ready yet. Waiting ${SLEEP_INTERVAL}s..."
-              sleep ${SLEEP_INTERVAL}
-              ELAPSED_TIME=$((ELAPSED_TIME + SLEEP_INTERVAL))
-          done
-          
-          # If the loop finishes without finding the revision, fail the step.
-          echo "Error: API revision not found after ${MAX_WAIT_TIME} seconds."
-          echo "Last output from apictl get api-revisions:"
-          echo "${REVISION_OUTPUT}"
-          exit 1
-
-      - name: Publish API to Dev 🚀
-        run: |
-          apictl change-status api --action "Publish" --name AirlineProductAPI --version 1.0.0 --environment dev 
+          apictl import api -f AirlineProductAPI/ -e dev --preserve-provider=false --update --insecure 
 
       - name: Run Tests (Optional)
         run: |
