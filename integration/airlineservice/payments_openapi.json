@@ -1,0 +1,125 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Payments",
+    "version" : "0.1.0"
+  },
+  "servers" : [ {
+    "url" : "{server}:{port}/payments",
+    "variables" : {
+      "server" : {
+        "default" : "http://localhost"
+      },
+      "port" : {
+        "default" : "9091"
+      }
+    }
+  } ],
+  "paths" : {
+    "/" : {
+      "post" : {
+        "operationId" : "post",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PaymentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PaymentResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "BadRequest",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ErrorPayload" : {
+        "required" : [ "message", "method", "path", "reason", "status", "timestamp" ],
+        "type" : "object",
+        "properties" : {
+          "timestamp" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "reason" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "method" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PaymentRequest" : {
+        "required" : [ "amount", "bookingId", "customerId", "paymentMethod" ],
+        "type" : "object",
+        "properties" : {
+          "bookingId" : {
+            "type" : "string"
+          },
+          "customerId" : {
+            "type" : "string"
+          },
+          "amount" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "paymentMethod" : {
+            "type" : "string"
+          },
+          "cardNumber" : {
+            "type" : "string"
+          }
+        },
+        "additionalProperties" : false
+      },
+      "PaymentResponse" : {
+        "required" : [ "message", "status", "transactionId" ],
+        "type" : "object",
+        "properties" : {
+          "transactionId" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        },
+        "additionalProperties" : false
+      }
+    }
+  }
+}

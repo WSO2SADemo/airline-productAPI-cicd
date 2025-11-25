@@ -1,13 +1,12 @@
 type: api
-version: v4.6.0
+version: v4.5.0
 data:
-  id: 808580a2-86f1-41c4-b7f5-7548f7e9e574
+  id: 9843f3f8-7765-4e95-91a6-0549e4003cd3
   name: airlineAPI
-  displayName: AirlineAPI
-  context: /alirline
+  context: /airlineapi
   version: 1.0.0
   provider: admin
-  lifeCycleStatus: CREATED
+  lifeCycleStatus: PUBLISHED
   responseCachingEnabled: false
   cacheTimeout: 300
   hasThumbnail: false
@@ -69,15 +68,15 @@ data:
     secret: ""
     signingAlgorithm: SHA1
     signatureHeader: x-hub-signature
-  createdTime: "1763979577547"
-  lastUpdatedTimestamp: "1763980008146"
-  lastUpdatedTime: 2025-11-24 15:56:48.146
+  createdTime: "1764057502000"
+  lastUpdatedTimestamp: "1764068851000"
+  lastUpdatedTime: 2025-11-25 11:07:31.0
   endpointConfig:
     endpoint_type: http
     sandbox_endpoints:
-      url: https://61038a4279ed680017482530.mockapi.io/sample-service/dev
+      url: http://airlineservice.ballerina.svc.cluster.local:8080/airline
     production_endpoints:
-      url: https://61038a4279ed680017482530.mockapi.io/sample-service/dev
+      url: http://airlineservice.ballerina.svc.cluster.local:8080/airline
   endpointImplementationType: ENDPOINT
   subtypeConfiguration:
     subtype: DEFAULT
@@ -93,7 +92,7 @@ data:
   operations:
    -
     id: ""
-    target: /*
+    target: /customers
     verb: GET
     authType: Application & Application User
     throttlingPolicy: Unlimited
@@ -112,7 +111,6 @@ data:
     vendor: WSO2
   gatewayVendor: wso2
   gatewayType: wso2/synapse
-  initiatedFromGateway: false
   asyncTransportProtocols: []
   egress: false
   organizationId: carbon.super

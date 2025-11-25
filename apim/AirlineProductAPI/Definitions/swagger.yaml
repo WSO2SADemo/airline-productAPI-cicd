@@ -9,11 +9,12 @@ security:
  -
   default: []
 paths:
-  /*:
+  /customers:
     get:
+      parameters: []
       responses:
         "200":
-          description: OK
+          description: ok
       security:
        -
         default: []
@@ -55,15 +56,16 @@ x-wso2-cors:
    - DELETE
    - PATCH
    - OPTIONS
+  empty: false
 x-wso2-production-endpoints:
   urls:
-   - https://61038a4279ed680017482530.mockapi.io/sample-service/dev
+   - http://airlineservice.ballerina.svc.cluster.local:8080/airline
   type: http
 x-wso2-sandbox-endpoints:
   urls:
-   - https://61038a4279ed680017482530.mockapi.io/sample-service/dev
+   - http://airlineservice.ballerina.svc.cluster.local:8080/airline
   type: http
-x-wso2-basePath: /alirline/1.0.0
+x-wso2-basePath: /airlineapi/1.0.0
 x-wso2-transports:
  - http
  - https
