@@ -1,4 +1,4 @@
-name: WSO2 API CI/CD - Aieline API Pipeline - Prod
+name: WSO2 API CI/CD - Prod- Airline Pipeline
 on:
   push:
     paths:
