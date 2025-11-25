@@ -7,7 +7,7 @@ on:
       - 'integration/airlineservice/**'
       - '.github/workflows/airline-ballerina-ci.yml'
     branches:
-      - dev
+      - prod
 
 jobs:
   build-and-deploy:
@@ -15,7 +15,7 @@ jobs:
 
     env:
       AKS_RESOURCE_GROUP: ${{ secrets.AKS_RESOURCE_GROUP }} # Azure Resource Group where the AKS cluster is
-      AKS_DEV_CLUSTER_NAME: ${{ secrets.AKS_DEV_CLUSTER_NAME }}     # Name of the AKS cluster
+      AKS_CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}     # Name of the AKS cluster
       BALLERINA_NAMESPACE: ballerina 
       # Define the base path for the Ballerina project
       PROJECT_DIR: integration/airlineservice 
@@ -82,7 +82,7 @@ jobs:
         uses: azure/aks-set-context@v3
         with:
           resource-group: ${{ env.AKS_RESOURCE_GROUP }}
-          cluster-name: ${{ env.AKS_DEV_CLUSTER_NAME }}
+          cluster-name: ${{ env.AKS_CLUSTER_NAME }}
 
       - name: 🚀 Ensure Namespace Exists
         run: |
