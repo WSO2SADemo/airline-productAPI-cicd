@@ -5,17 +5,17 @@ on:
       - 'apim/AirlineProductAPI/**'
       - '.github/workflows/airline-api-pipeline.yml'
     branches:
-      - dev
+      - prod
 
 jobs:
-  deploy-api-dev:
+  deploy-api-prod:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, 'dev') || github.event_name == 'push' }}
+    if: ${{ contains(github.event.head_commit.message, 'prod') || github.event_name == 'push' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Add etc/hosts entry for dev.airbus.am.wso2.com 🌐
+      - name: Add etc/hosts entry for airbus.am.wso2.com 🌐
         run: |
           # Format: IP Address    Hostname(s)
           # 'tee -a' appends the line to /etc/hosts using sudo privileges.
@@ -32,22 +32,22 @@ jobs:
           chmod +x apictl/apictl
           sudo mv apictl/apictl /usr/local/bin/
 
-      - name: Add Dev Environment
+      - name: Add Prod Environment
         run: |
-          apictl add env dev --apim https://${{ secrets.WSO2_APIM }}
+          apictl add env prod --apim https://${{ secrets.WSO2_APIM }}
 
-      - name: Login to Dev
+      - name: Login to Prod
         run: |
-          apictl login dev -u ${{ secrets.APIM_USERNAME }} -p ${{ secrets.APIM_PASSWORD }} --insecure
+          apictl login prod -u ${{ secrets.APIM_USERNAME }} -p ${{ secrets.APIM_PASSWORD }} --insecure
 
-      - name: Import API to Dev
+      - name: Import API to Prod
         run: |
-          apictl import api -f apim/AirlineProductAPI/ -e dev --preserve-provider=false --update --insecure 
+          apictl import api -f apim/AirlineProductAPI/ -e prod --preserve-provider=false --update --insecure 
 
       - name: Run Tests (Optional)
         run: |
-          apictl get apis -e dev --insecure | awk 'NR>1 {print}' | grep -E "AirlineProductAPI" || {
-            echo "AirlineProductAPI not found in Publisher (dev)."
+          apictl get apis -e prod --insecure | awk 'NR>1 {print}' | grep -E "AirlineProductAPI" || {
+            echo "AirlineProductAPI not found in Publisher (prod)."
             exit 1
           }
-          echo "AirlineProductAPI is present in Publisher (dev)"
+          echo "AirlineProductAPI is present in Publisher (prod)"
