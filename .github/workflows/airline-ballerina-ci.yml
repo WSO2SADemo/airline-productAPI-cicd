@@ -1,4 +1,4 @@
-name: Ballerina CI/CD Pipeline
+name: WSO2 Ballerina CI/CD - Airline Service Pipeline - Prod
 
 on:
   push:
