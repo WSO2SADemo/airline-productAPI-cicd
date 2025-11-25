@@ -5,7 +5,7 @@ on:
     paths:
       # 1. CORRECTED: Trigger on changes within the new source directory
       - 'integration/airlineservice/**'
-      - '.github/workflows/airline-ballerina-pipeline.yml'
+      - '.github/workflows/airline-ballerina-ci.yml'
     branches:
       - dev
 
