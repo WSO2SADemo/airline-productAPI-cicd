@@ -1,4 +1,4 @@
-name: WSO2 Ballerina CI/CD - Airline Service Pipeline - Prod
+name: WSO2 Ballerina CI/CD - Prod - Airline Pipeline
 
 on:
   push:
