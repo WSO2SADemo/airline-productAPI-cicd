@@ -11,7 +11,7 @@ service /airline on apiListener {
         json todos = [
             {
                 "id": 1,
-                "name": "Test Service Response",
+                "name": "Test Service Response 2",
                 "status": "OPEN"
             }
         ];
