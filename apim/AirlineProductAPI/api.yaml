@@ -4,7 +4,7 @@ data:
   id: 808580a2-86f1-41c4-b7f5-7548f7e9e574
   name: airlineAPI
   displayName: AirlineAPI
-  context: /alirline
+  context: /airline
   version: 1.0.0
   provider: admin
   lifeCycleStatus: CREATED
@@ -75,9 +75,9 @@ data:
   endpointConfig:
     endpoint_type: http
     sandbox_endpoints:
-      url: https://61038a4279ed680017482530.mockapi.io/sample-service/dev
+      url: http://airlineservice.ballerina.svc.cluster.local:8080/airline
     production_endpoints:
-      url: https://61038a4279ed680017482530.mockapi.io/sample-service/dev
+      url: http://airlineservice.ballerina.svc.cluster.local:8080/airline
   endpointImplementationType: ENDPOINT
   subtypeConfiguration:
     subtype: DEFAULT

@@ -1,0 +1,7 @@
+    <property name="NEW_URL" value="/business/id/info" />
+    <rewrite inProperty="NEW_URL" outProperty="NEW_URL">
+        <rewriterule>
+            <action type="replace" regex="id" xpath="get-property('uri.var.id')" fragment="path" />
+        </rewriterule>
+    </rewrite>
+    <property name="REST_URL_POSTFIX" expression="get-property('NEW_URL')" scope="axis2" />

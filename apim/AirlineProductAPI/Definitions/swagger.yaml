@@ -63,7 +63,7 @@ x-wso2-sandbox-endpoints:
   urls:
    - https://61038a4279ed680017482530.mockapi.io/sample-service/dev
   type: http
-x-wso2-basePath: /alirline/1.0.0
+x-wso2-basePath: /airline/1.0.0
 x-wso2-transports:
  - http
  - https
