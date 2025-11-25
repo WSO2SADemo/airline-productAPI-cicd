@@ -46,8 +46,8 @@ jobs:
 
       - name: Run Tests (Optional)
         run: |
-          apictl get apis -e prod --insecure | awk 'NR>1 {print}' | grep -E "AirlineProductAPI" || {
-            echo "AirlineProductAPI not found in Publisher (prod)."
+          apictl get apis -e prod --insecure | awk 'NR>1 {print}' | grep -E "airlineAPI" || {
+            echo "airlineAPI not found in Publisher (prod)."
             exit 1
           }
-          echo "AirlineProductAPI is present in Publisher (prod)"
+          echo "airlineAPI is present in Publisher (prod)"
