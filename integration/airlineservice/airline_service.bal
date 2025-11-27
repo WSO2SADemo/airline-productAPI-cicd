@@ -1,5 +1,6 @@
 import ballerina/http;
 import ballerina/log;
+import ballerinax/wso2.apim.catalog as _;
 
 // Unified API Service
 listener http:Listener apiListener = new (airlineServicePort);
@@ -146,35 +147,6 @@ service /airline on apiListener {
 // Mock backend services for demonstration purposes
 listener http:Listener mockServicesListener = new (9091);
 
-// Mock Customer Service
-service /customers on mockServicesListener {
-    
-    resource function get [string customerId]() returns Customer|http:NotFound|http:InternalServerError {
-        // Call external mock API to get customer data
-        json[]|error response = mockApiClient->get(path = "/");
-        
-        if response is error {
-            log:printError("Error calling mock API", 'error = response);
-            return <http:InternalServerError>{body: "Failed to retrieve customer data"};
-        }
-        
-        // Filter customers by customerId
-        foreach json customerJson in response {
-            Customer|error customer = customerJson.cloneWithType();
-            
-            if customer is error {
-                log:printError("Error parsing customer data", 'error = customer);
-                continue;
-            }
-            
-            if customer.customerId == customerId {
-                return customer;
-            }
-        }
-        
-        return <http:NotFound>{body: "Customer not found"};
-    }
-}
 
 // Mock Flight Service
 service /flights on mockServicesListener {
@@ -236,35 +208,5 @@ service /flights on mockServicesListener {
         
         log:printInfo("Booking created", bookingId = booking.bookingId);
         return booking;
-    }
-}
-
-// Mock Payment Service
-service /payments on mockServicesListener {
-    
-    resource function post .(@http:Payload PaymentRequest paymentRequest) returns PaymentResponse {
-        // Mock payment processing
-        PaymentResponse response = {
-            transactionId: "TXN" + paymentRequest.bookingId,
-            status: "SUCCESS",
-            message: "Payment processed successfully"
-        };
-        
-        log:printInfo("Payment processed", transactionId = response.transactionId);
-        return response;
-    }
-}
-
-// Mock Notification Service
-service /notifications on mockServicesListener {
-    
-    resource function post .(@http:Payload NotificationRequest notificationRequest) returns http:Ok {
-        // Mock notification sending
-        log:printInfo("Notification sent", 
-            customerId = notificationRequest.customerId, 
-            email = notificationRequest.email,
-            subject = notificationRequest.subject);
-        
-        return <http:Ok>{body: "Notification sent"};
     }
 }

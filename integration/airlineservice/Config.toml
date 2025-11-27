@@ -1,0 +1,7 @@
+[ballerinax.wso2.apim.catalog]
+serviceUrl="https://127.0.0.1:9444/api/am/service-catalog/v1"
+tokenUrl="https://localhost:9444/oauth2/token"
+username="admin"
+password="admin"
+clientId="VdSxlKQDJ5ATMSkh94wR0qCrc7Aa"
+clientSecret="8X0uXfa56HqetD9fWfb9B86GjOEa"
