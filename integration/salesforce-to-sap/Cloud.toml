@@ -23,7 +23,7 @@ key_ref="sfListenerConfigPassword"
 secret_name="salesforce-sap-secrets"
 
 [[cloud.secret.envs]]
-key_ref="sfListenerConfigPsername"
+key_ref="sfListenerConfigUsername"
 secret_name="salesforce-sap-secrets"
 
 [[cloud.secret.envs]]
