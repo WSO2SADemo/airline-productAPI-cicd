@@ -19,9 +19,9 @@ import ballerina/random;
 import ballerinax/salesforce;
 import ballerinax/sap.s4hana.api_sales_order_srv as salesorder;
 
-configurable SfListenerConfig sfListenerConfig = ?;
-configurable SfClientConfig sfClientConfig = ?;
-configurable S4HanaClientConfig s4hanaClientConfig = ?;
+// configurable SfListenerConfig sfListenerConfig = ?;
+// configurable SfClientConfig sfClientConfig = ?;
+// configurable S4HanaClientConfig s4hanaClientConfig = ?;
 
 listener salesforce:Listener sfListener = new (
     auth = {
