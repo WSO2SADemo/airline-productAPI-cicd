@@ -25,29 +25,29 @@ configurable S4HanaClientConfig s4hanaClientConfig = ?;
 
 listener salesforce:Listener sfListener = new (
     auth = {
-        username: sfListenerConfig.username,
-        password: sfListenerConfig.password
+        username: sfListenerConfigUsername,
+        password: sfListenerConfigPassword
     },
     isSandBox = sfListenerConfig.isSandbox
 );
 
 final salesforce:Client sfClient = check new ({
-    baseUrl: sfClientConfig.baseUrl,
+    baseUrl: sfClientConfigBaseUrl,
     auth: {
-        clientId: sfClientConfig.clientId,
-        clientSecret: sfClientConfig.clientSecret,
-        refreshToken: sfClientConfig.refreshToken,
-        refreshUrl: sfClientConfig.refreshUrl
+        clientId: sfClientConfigClientId,
+        clientSecret: sfClientConfigClientSecret,
+        refreshToken: sfClientConfigRefreshToken,
+        refreshUrl: sfClientConfigRefreshUrl
     }
 });
 
 final salesorder:Client salesOrderClient = check new ({
         auth: {
-            username: s4hanaClientConfig.username,
-            password: s4hanaClientConfig.password
+            username: s4hanaClientConfigUsername,
+            password: s4hanaClientConfigPassword
         }
     },
-    s4hanaClientConfig.hostname
+    s4hanaClientConfigHostname
 );
 
 service "/data/OpportunityChangeEvent" on sfListener {
