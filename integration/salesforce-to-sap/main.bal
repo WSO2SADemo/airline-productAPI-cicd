@@ -46,6 +46,9 @@ final salesorder:Client salesOrderClient = check new ({
     s4hanaClientConfigHostname
 );
 
+function init() {
+    log:printInfo("Service started", sfListenerConfigUsername = sfListenerConfigUsername);
+}
 service "/data/OpportunityChangeEvent" on sfListener {
     isolated remote function onCreate(salesforce:EventData payload) {
         log:printInfo(string `New opportunity created: ${payload.metadata?.recordId ?: ""}`);
