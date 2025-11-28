@@ -93,7 +93,7 @@ jobs:
       - name: 🔍 Debug - Check K8s Artifacts Directory
         run: |
           # K8s artifacts path relative to repository root
-          K8S_ARTIFACTS_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce-to-sap"
+          K8S_ARTIFACTS_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_to_sap"
           
           if [ -d "${K8S_ARTIFACTS_DIR}" ]; then
             echo "${K8S_ARTIFACTS_DIR} directory exists. Contents:"
