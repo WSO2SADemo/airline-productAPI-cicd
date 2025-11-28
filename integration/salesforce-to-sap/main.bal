@@ -28,7 +28,7 @@ listener salesforce:Listener sfListener = new (
         username: sfListenerConfigUsername,
         password: sfListenerConfigPassword
     },
-    isSandBox = sfListenerConfig.isSandbox
+    isSandBox = false
 );
 
 final salesforce:Client sfClient = check new ({
