@@ -57,8 +57,8 @@ function getSalesforceClient() returns salesforce:Client|error {
     // Log configuration (without sensitive data)
     log:printInfo("Initializing Salesforce client with baseUrl: " + trimmedBaseUrl);
     log:printInfo("Salesforce tokenUrl: " + trimmedTokenUrl);
-    log:printInfo("Salesforce clientId length: " + trimmedClientId.length().toString());
-    log:printInfo("Salesforce clientSecret length: " + trimmedClientSecret.length().toString());
+    log:printInfo("Salesforce clientId length: " + trimmedClientId);
+    log:printInfo("Salesforce clientSecret length: " + trimmedClientSecret);
     
     salesforce:Client newClient = check new ({
         baseUrl: trimmedBaseUrl,
