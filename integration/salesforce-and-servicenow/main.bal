@@ -9,7 +9,7 @@ listener http:Listener OrderListener = new (samplePort);
 function init() {
     log:printInfo("Salesforce to ServiceNow service started");
 }
-service /Order on OrderListener {
+service /'order on OrderListener {
     resource function post chat(@http:Payload ChatRequest request) returns ChatResponse|error {
         // string stringResult = check _fullfillmentAgentAgent.run(request.message, request.sessionId);
         // return {message: stringResult};

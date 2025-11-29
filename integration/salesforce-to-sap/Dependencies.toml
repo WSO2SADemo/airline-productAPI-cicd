@@ -420,7 +420,7 @@ modules = [
 [[package]]
 org = "ramindu"
 name = "salesforce_to_sap"
-version = "0.1.0"
+version = "0.3.0"
 dependencies = [
 	{org = "ballerina", name = "cloud"},
 	{org = "ballerina", name = "log"},
