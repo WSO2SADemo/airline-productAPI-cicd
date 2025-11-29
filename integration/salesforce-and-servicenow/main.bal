@@ -3,7 +3,7 @@ import ballerina/log;
 import ballerinax/salesforce;
 import ballerinax/servicenow;
 
-listener http:Listener fullfillmentAgentListener = check new (9090);
+listener http:Listener fullfillmentAgentListener = new (samplePort);
 
 
 function init() {
