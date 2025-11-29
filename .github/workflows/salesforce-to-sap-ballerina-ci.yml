@@ -1,4 +1,4 @@
-name: WSO2 Ballerina CI/CD - Prod - SFtoSAP Pipeline
+name: Ballerina - Prod - SFtoSAP Pipeline
 
 on:
   push:

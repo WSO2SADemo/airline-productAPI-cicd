@@ -1,11 +1,11 @@
-name: WSO2 Ballerina CI/CD - Prod - SFtoSN Pipeline
+name: Ballerina - Prod - SFandSN Pipeline
 
 on:
   push:
     paths:
       # 1. CORRECTED: Trigger on changes within the new source directory
-      - 'integration/salesforce-to-servicenow/**'
-      - '.github/workflows/salesforce-to-servicenow-ballerina-ci.yml'
+      - 'integration/salesforce-and-servicenow/**'
+      - '.github/workflows/salesforce-and-servicenow-ballerina-ci.yml'
     branches:
       - prod
 
@@ -18,7 +18,7 @@ jobs:
       AKS_CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}     # Name of the AKS cluster
       BALLERINA_NAMESPACE: ballerina 
       # Define the base path for the Ballerina project
-      PROJECT_DIR: integration/salesforce-to-servicenow 
+      PROJECT_DIR: integration/salesforce-and-servicenow 
 
     steps:
       - name: Checkout Code
@@ -64,7 +64,7 @@ jobs:
       - name: 📦 Push Docker Image to Registry
         run: |
           # Pushes the image tag defined in your Deployment manifest (airlineservice-deployment)
-          IMAGE_NAME="ramilu90/salesforce-to-servicenow:1.0.0"
+          IMAGE_NAME="ramilu90/salesforce-and-servicenow:1.0.0"
           echo "Pushing image: ${IMAGE_NAME}"
           docker push ${IMAGE_NAME}
 
@@ -93,7 +93,7 @@ jobs:
       - name: 🔍 Debug - Check K8s Artifacts Directory
         run: |
           # K8s artifacts path relative to repository root
-          K8S_ARTIFACTS_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_to_servicenow"
+          K8S_ARTIFACTS_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_and_servicenow"
           
           if [ -d "${K8S_ARTIFACTS_DIR}" ]; then
             echo "${K8S_ARTIFACTS_DIR} directory exists. Contents:"
@@ -106,7 +106,7 @@ jobs:
       - name: Deploy Kubernetes Resources with kubectl
         # 3. CORRECTED: Use the full relative path for kubectl delete/apply
         run: |
-          K8S_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_to_servicenow"
+          K8S_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_and_servicenow"
           
           echo "Deleting existing resources from ${K8S_DIR}..."
           # Added --ignore-not-found to prevent pipeline failure if resources don't exist yet

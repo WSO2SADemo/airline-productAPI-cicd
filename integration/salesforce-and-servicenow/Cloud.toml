@@ -1,6 +1,6 @@
 [container.image]
 repository="ramilu90" # Docker hub repository name.
-name="salesforce-to-servicenow" # container name
+name="sf-to-sn" # container name
 tag="1.0.0"
 
 tag="1.0.3"
@@ -21,11 +21,11 @@ secret_name="salesforce-sap-secrets"
 key_ref="sfClientConfigClientSecret"
 secret_name="salesforce-sap-secrets"
 
-[[cloud.secret.envs]]
+[[cloud.config.envs]]
 key_ref="sfClientConfigRefreshUrl"
 secret_name="salesforce-sap-secrets"
 
-[[cloud.secret.envs]]
+[[cloud.config.envs]]
 key_ref="sfClientConfigBaseUrl"
 secret_name="salesforce-sap-secrets"
 
