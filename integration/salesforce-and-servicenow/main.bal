@@ -3,13 +3,13 @@ import ballerina/log;
 import ballerinax/salesforce;
 import ballerinax/servicenow;
 
-listener http:Listener fullfillmentAgentListener = new (samplePort);
+listener http:Listener OrderListener = new (samplePort);
 
 
 function init() {
     log:printInfo("Salesforce to ServiceNow service started");
 }
-service /fullfillmentAgent on fullfillmentAgentListener {
+service /Order on OrderListener {
     resource function post chat(@http:Payload ChatRequest request) returns ChatResponse|error {
         // string stringResult = check _fullfillmentAgentAgent.run(request.message, request.sessionId);
         // return {message: stringResult};
@@ -20,7 +20,7 @@ service /fullfillmentAgent on fullfillmentAgentListener {
     # 
     # + request - Request containing orderId and payload
     # + return - Response with order details and ticket information or error
-    resource function post validateOrder(@http:Payload OrderTicketRequest request) returns OrderTicketResponse|error {
+    resource function post cancelOrder(@http:Payload OrderTicketRequest request) returns OrderTicketResponse|error {
         // Get Salesforce client
         salesforce:Client salesforceClient = check getSalesforceClient();
         
