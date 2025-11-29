@@ -394,7 +394,7 @@ modules = [
 
 [[package]]
 org = "wso2"
-name = "salesforce_to_sap"
+name = "salesforce_to_servicenow"
 version = "1.0.0"
 dependencies = [
 	{org = "ballerina", name = "cloud"},
@@ -406,6 +406,6 @@ dependencies = [
 	{org = "ballerinax", name = "servicenow"}
 ]
 modules = [
-	{org = "wso2", packageName = "salesforce_to_sap", moduleName = "salesforce_to_sap"}
+	{org = "wso2", packageName = "salesforce_to_servicenow", moduleName = "salesforce_to_servicenow"}
 ]
 

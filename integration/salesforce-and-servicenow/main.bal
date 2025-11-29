@@ -5,6 +5,10 @@ import ballerinax/servicenow;
 
 listener http:Listener fullfillmentAgentListener = check new (9090);
 
+
+function init() {
+    log:printInfo("Salesforce to ServiceNow service started");
+}
 service /fullfillmentAgent on fullfillmentAgentListener {
     resource function post chat(@http:Payload ChatRequest request) returns ChatResponse|error {
         // string stringResult = check _fullfillmentAgentAgent.run(request.message, request.sessionId);
