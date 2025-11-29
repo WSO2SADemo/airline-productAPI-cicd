@@ -38,9 +38,9 @@ secret_name="salesforce-sap-secrets"
 key_ref="sfClientConfigRefreshToken"
 secret_name="salesforce-sap-secrets"
 
-[[cloud.secret.envs]]
+[[cloud.config.envs]]
 key_ref="sfClientConfigRefreshUrl"
-secret_name="salesforce-sap-secrets"
+config_name="ballerina-values"
 
 [[cloud.config.envs]]
 key_ref="sfClientConfigBaseUrl"

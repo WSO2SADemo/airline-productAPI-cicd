@@ -19,6 +19,10 @@ import ballerina/random;
 import ballerinax/salesforce;
 import ballerinax/sap.s4hana.api_sales_order_srv as salesorder;
 
+// configurable SfListenerConfig sfListenerConfig = ?;
+// configurable SfClientConfig sfClientConfig = ?;
+// configurable S4HanaClientConfig s4hanaClientConfig = ?;
+
 listener salesforce:Listener sfListener = new (
     auth = {
         username: sfListenerConfigUsername,
@@ -45,6 +49,32 @@ final salesorder:Client salesOrderClient = check new ({
     },
     s4hanaClientConfigHostname
 );
+// listener salesforce:Listener sfListener = new (
+//     auth = {
+//         username: sfListenerConfig.username,
+//         password: sfListenerConfig.password
+//     },
+//     isSandBox = false
+// );
+
+// final salesforce:Client sfClient = check new ({
+//     baseUrl: sfClientConfig.baseUrl,
+//     auth: {
+//         clientId: sfClientConfig.clientId,
+//         clientSecret: sfClientConfig.clientSecret,
+//         refreshToken: sfClientConfig.refreshToken,
+//         refreshUrl: sfClientConfig.refreshUrl
+//     }
+// });
+
+// final salesorder:Client salesOrderClient = check new ({
+//         auth: {
+//             username: s4hanaClientConfig.username,
+//             password: s4hanaClientConfig.password
+//         }
+//     },
+//     s4hanaClientConfig.hostname
+// );
 
 function init() {
     log:printInfo("Service started", sfListenerConfigUsername = sfListenerConfigUsername);

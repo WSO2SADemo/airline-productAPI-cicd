@@ -12,4 +12,3 @@ string sfClientConfigRefreshToken = os:getEnv("sfClientConfigRefreshToken");
 string sfClientConfigRefreshUrl = os:getEnv("sfClientConfigRefreshUrl");
 string sfClientConfigBaseUrl = os:getEnv("sfClientConfigBaseUrl");
 string s4hanaClientConfigHostname = os:getEnv("s4hanaClientConfigHostname");
-
