@@ -77,7 +77,7 @@ final salesorder:Client salesOrderClient = check new ({
 // );
 
 function init() {
-    log:printInfo("Service started", sfListenerConfigUsername = sfListenerConfigUsername);
+    log:printInfo("Service now to SAP service started");
 }
 service "/data/OpportunityChangeEvent" on sfListener {
     isolated remote function onCreate(salesforce:EventData payload) {
