@@ -14,24 +14,24 @@ function getSalesforceClient() returns salesforce:Client|error {
     }
     
     // Validate configuration with detailed error messages
-    if salesforceBaseUrl == "" {
+    if salesforceAPIBaseUrl == "" {
         return error("Salesforce baseUrl is not configured. Please add 'salesforceBaseUrl' in Config.toml");
     }
-    if salesforceClientId == "" {
+    if salesforceAPIClientId == "" {
         return error("Salesforce clientId is not configured. Please add 'salesforceClientId' in Config.toml");
     }
-    if salesforceClientSecret == "" {
+    if salesforceAPIClientSecret == "" {
         return error("Salesforce clientSecret is not configured. Please add 'salesforceClientSecret' in Config.toml");
     }
-    if salesforceTokenUrl == "" {
+    if salesforceAPITokenUrl == "" {
         return error("Salesforce tokenUrl is not configured. Please add 'salesforceTokenUrl' in Config.toml");
     }
     
     // Trim whitespace from configuration values
-    string trimmedBaseUrl = salesforceBaseUrl.trim();
-    string trimmedClientId = salesforceClientId.trim();
-    string trimmedClientSecret = salesforceClientSecret.trim();
-    string trimmedTokenUrl = salesforceTokenUrl.trim();
+    string trimmedBaseUrl = salesforceAPIBaseUrl.trim();
+    string trimmedClientId = salesforceAPIClientId.trim();
+    string trimmedClientSecret = salesforceAPIClientSecret.trim();
+    string trimmedTokenUrl = salesforceAPITokenUrl.trim();
     
     // Convert Lightning URL to My Domain URL if needed
     if trimmedBaseUrl.includes("lightning.force.com") {
