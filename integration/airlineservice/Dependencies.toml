@@ -295,23 +295,6 @@ dependencies = [
 ]
 
 [[package]]
-org = "ballerinax"
-name = "wso2.apim.catalog"
-version = "1.1.2"
-dependencies = [
-	{org = "ballerina", name = "constraint"},
-	{org = "ballerina", name = "http"},
-	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "mime"},
-	{org = "ballerina", name = "oauth2"},
-	{org = "ballerina", name = "url"}
-]
-modules = [
-	{org = "ballerinax", packageName = "wso2.apim.catalog", moduleName = "wso2.apim.catalog"}
-]
-
-[[package]]
 org = "ramindu"
 name = "airlineservice"
 version = "0.1.0"
@@ -319,8 +302,7 @@ dependencies = [
 	{org = "ballerina", name = "cloud"},
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "os"},
-	{org = "ballerinax", name = "wso2.apim.catalog"}
+	{org = "ballerina", name = "os"}
 ]
 modules = [
 	{org = "ramindu", packageName = "airlineservice", moduleName = "airlineservice"}

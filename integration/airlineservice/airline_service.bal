@@ -1,6 +1,6 @@
 import ballerina/http;
 import ballerina/log;
-import ballerinax/wso2.apim.catalog as _;
+// import ballerinax/wso2.apim.catalog as _;
 
 // Unified API Service
 listener http:Listener apiListener = new (airlineServicePort);
@@ -21,14 +21,28 @@ service /airline on apiListener {
 
     // Get customer profile with loyalty information
     resource function get customers/[string customerId]() returns Customer|http:NotFound|http:InternalServerError {
-        Customer|error customer = getCustomerInfo(customerId);
-        
-        if customer is error {
-            log:printError("Error retrieving customer", 'error = customer);
+        // Fetch customers from mock API
+        json[]|error response = mockApiClient->get(path = "/");
+        if response is error {
+            log:printError("Error calling mock API", 'error = response);
             return <http:InternalServerError>{body: "Failed to retrieve customer information"};
         }
-        
-        return customer;
+
+        // Filter customer by customerId
+        foreach json customerJson in response {
+            Customer|error customer = customerJson.cloneWithType();
+            if customer is error {
+                log:printError("Error parsing customer data", 'error = customer);
+                continue;
+            }
+            log:printError("ඡarsing customer data", 'customer = customer);
+            if customer.customerId == customerId {
+                return customer;
+            }
+        }
+
+        // Return NotFound if customer not found
+        return <http:NotFound>{body: string `Customer with ID ${customerId} not found`};
     }
 
     resource function get newresource() returns string {
@@ -36,11 +50,13 @@ service /airline on apiListener {
     }
 
     resource function get customers() returns Customer[]|http:InternalServerError {
+        // Fetch customers from mock API
         json[]|error response = mockApiClient->get(path = "/");
         if response is error {
             log:printError("Error calling mock API", 'error = response);
             return <http:InternalServerError>{body: "Failed to retrieve customer information"};
         }
+
         Customer[] customers = [];
         foreach json customerJson in response {
             Customer|error customer = customerJson.cloneWithType();
@@ -53,160 +69,8 @@ service /airline on apiListener {
         return customers;
     }
 
-    // Search flights between origin and destination
-    resource function get flights(string origin, string destination) returns Flight[]|http:InternalServerError {
-        Flight[]|error flights = searchFlights(origin, destination);
-        
-        if flights is error {
-            log:printError("Error searching flights", 'error = flights);
-            return <http:InternalServerError>{body: "Failed to search flights"};
-        }
-        
-        return flights;
-    }
-
-    // Complete booking workflow: validate customer, check flight, create booking, process payment, send notification
-    resource function post bookings(@http:Payload BookingRequest bookingRequest) returns ApiResponse|http:BadRequest|http:InternalServerError {
-        
-        // Step 1: Validate customer
-        Customer|error customer = getCustomerInfo(bookingRequest.customerId);
-        if customer is error {
-            log:printError("Customer validation failed", 'error = customer);
-            return <http:BadRequest>{body: {success: false, message: "Invalid customer ID"}};
-        }
-        
-        // Step 2: Get flight details
-        Flight|error flight = getFlightDetails(bookingRequest.flightNumber);
-        if flight is error {
-            log:printError("Flight not found", 'error = flight);
-            return <http:BadRequest>{body: {success: false, message: "Invalid flight number"}};
-        }
-        
-        // Step 3: Check seat availability
-        if flight.availableSeats <= 0 {
-            return <http:BadRequest>{body: {success: false, message: "No seats available"}};
-        }
-        
-        // Step 4: Apply loyalty discount
-        decimal finalPrice = applyLoyaltyDiscount(flight.price, customer.loyaltyTier);
-        
-        // Step 5: Create booking
-        Booking|error booking = createBooking(bookingRequest);
-        if booking is error {
-            log:printError("Booking creation failed", 'error = booking);
-            return <http:InternalServerError>{body: {success: false, message: "Failed to create booking"}};
-        }
-        
-        // Step 6: Process payment
-        PaymentRequest paymentRequest = {
-            bookingId: booking.bookingId,
-            customerId: bookingRequest.customerId,
-            amount: finalPrice,
-            paymentMethod: "CREDIT_CARD"
-        };
-        
-        PaymentResponse|error paymentResponse = processPayment(paymentRequest);
-        if paymentResponse is error {
-            log:printError("Payment processing failed", 'error = paymentResponse);
-            return <http:InternalServerError>{body: {success: false, message: "Payment processing failed"}};
-        }
-        
-        if paymentResponse.status != "SUCCESS" {
-            return <http:BadRequest>{body: {success: false, message: "Payment declined"}};
-        }
-        
-        // Step 7: Send confirmation notification
-        NotificationRequest notificationRequest = {
-            customerId: customer.customerId,
-            email: customer.email,
-            subject: "Booking Confirmation",
-            message: string `Your booking ${booking.bookingId} for flight ${flight.flightNumber} is confirmed!`
-        };
-        
-        error? notificationResult = sendNotification(notificationRequest);
-        if notificationResult is error {
-            log:printWarn("Notification sending failed but booking is successful", 'error = notificationResult);
-        }
-        
-        // Return success response
-        ApiResponse response = {
-            success: true,
-            message: "Booking completed successfully",
-            data: booking.toJson()
-        };
-        
-        return response;
-    }
-
     // Health check endpoint
     resource function get health() returns json {
         return {status: "UP", serviceName: "Unified API Service"};
-    }
-}
-
-// Mock backend services for demonstration purposes
-listener http:Listener mockServicesListener = new (9091);
-
-
-// Mock Flight Service
-service /flights on mockServicesListener {
-    
-    resource function get .(string origin, string destination) returns Flight[] {
-        // Mock flight data
-        Flight[] flights = [
-            {
-                flightNumber: "AA101",
-                origin: origin,
-                destination: destination,
-                departureTime: "2024-03-15T10:00:00Z",
-                arrivalTime: "2024-03-15T14:00:00Z",
-                price: 350.00,
-                availableSeats: 45
-            },
-            {
-                flightNumber: "AA102",
-                origin: origin,
-                destination: destination,
-                departureTime: "2024-03-15T16:00:00Z",
-                arrivalTime: "2024-03-15T20:00:00Z",
-                price: 420.00,
-                availableSeats: 30
-            }
-        ];
-        
-        return flights;
-    }
-    
-    resource function get [string flightNumber]() returns Flight|http:NotFound {
-        // Mock flight details
-        if flightNumber == "AA101" {
-            return {
-                flightNumber: "AA101",
-                origin: "JFK",
-                destination: "LAX",
-                departureTime: "2024-03-15T10:00:00Z",
-                arrivalTime: "2024-03-15T14:00:00Z",
-                price: 350.00,
-                availableSeats: 45
-            };
-        }
-        
-        return <http:NotFound>{body: "Flight not found"};
-    }
-    
-    resource function post bookings(@http:Payload BookingRequest bookingRequest) returns Booking {
-        // Mock booking creation
-        Booking booking = {
-            bookingId: "BK" + bookingRequest.customerId + "001",
-            customerId: bookingRequest.customerId,
-            flightNumber: bookingRequest.flightNumber,
-            seatNumber: "12A",
-            status: "CONFIRMED",
-            totalAmount: 350.00,
-            bookingDate: "2024-03-10T09:00:00Z"
-        };
-        
-        log:printInfo("Booking created", bookingId = booking.bookingId);
-        return booking;
     }
 }
