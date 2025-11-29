@@ -1,6 +1,6 @@
 [package]
 org = "wso2"
-name = "salesforce_to_servicenow"
+name = "sf_to_servicenow"
 version = "1.0.0"
 distribution = "2201.12.7"
 

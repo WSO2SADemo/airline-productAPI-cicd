@@ -93,7 +93,7 @@ jobs:
       - name: 🔍 Debug - Check K8s Artifacts Directory
         run: |
           # K8s artifacts path relative to repository root
-          K8S_ARTIFACTS_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_and_servicenow"
+          K8S_ARTIFACTS_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/sf_to_servicenow"
           
           if [ -d "${K8S_ARTIFACTS_DIR}" ]; then
             echo "${K8S_ARTIFACTS_DIR} directory exists. Contents:"
@@ -106,7 +106,7 @@ jobs:
       - name: Deploy Kubernetes Resources with kubectl
         # 3. CORRECTED: Use the full relative path for kubectl delete/apply
         run: |
-          K8S_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/salesforce_and_servicenow"
+          K8S_DIR="${{ env.PROJECT_DIR }}/target/kubernetes/sf_to_servicenow"
           
           echo "Deleting existing resources from ${K8S_DIR}..."
           # Added --ignore-not-found to prevent pipeline failure if resources don't exist yet
