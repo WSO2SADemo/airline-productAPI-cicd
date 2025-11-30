@@ -12,19 +12,19 @@ key_ref="servicenowPassword"
 secret_name="salesforce-sap-secrets"
 
 [[cloud.secret.envs]]
-key_ref="sfClientConfigClientId"
+key_ref="salesforceAPIClientId"
 secret_name="salesforce-sap-secrets"
 
 [[cloud.secret.envs]]
-key_ref="sfClientConfigClientSecret"
+key_ref="salesforceAPIClientSecret"
 secret_name="salesforce-sap-secrets"
 
 [[cloud.config.envs]]
-key_ref="sfClientConfigRefreshUrl"
+key_ref="salesforceAPITokenUrl"
 config_name="ballerina-values"
 
 [[cloud.config.envs]]
-key_ref="sfClientConfigBaseUrl"
+key_ref="salesforceAPIBaseUrl"
 config_name="ballerina-values"
 
 [[cloud.config.envs]]

@@ -15,16 +15,16 @@ function getSalesforceClient() returns salesforce:Client|error {
     
     // Validate configuration with detailed error messages
     if salesforceAPIBaseUrl == "" {
-        return error("Salesforce baseUrl is not configured. Please add 'salesforceBaseUrl' in Config.toml");
+        return error("Salesforce baseUrl is not configured. Please add 'salesforceAPIBaseUrl' in Config.toml");
     }
     if salesforceAPIClientId == "" {
-        return error("Salesforce clientId is not configured. Please add 'salesforceClientId' in Config.toml");
+        return error("Salesforce clientId is not configured. Please add 'salesforceAPIClientId' in Config.toml");
     }
     if salesforceAPIClientSecret == "" {
-        return error("Salesforce clientSecret is not configured. Please add 'salesforceClientSecret' in Config.toml");
+        return error("Salesforce clientSecret is not configured. Please add 'salesforceAPIClientSecret' in Config.toml");
     }
     if salesforceAPITokenUrl == "" {
-        return error("Salesforce tokenUrl is not configured. Please add 'salesforceTokenUrl' in Config.toml");
+        return error("Salesforce tokenUrl is not configured. Please add 'salesforceAPITokenUrl' in Config.toml");
     }
     
     // Trim whitespace from configuration values
