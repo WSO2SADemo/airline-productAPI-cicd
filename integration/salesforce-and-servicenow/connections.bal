@@ -2,6 +2,10 @@ import ballerina/log;
 import ballerina/regex;
 import ballerinax/salesforce;
 import ballerinax/servicenow;
+import ballerina/ai;
+import ballerinax/ai.openai;
+import ballerinax/ai.pinecone;
+import ballerinax/sendgrid;
 
 // Lazy-initialized clients
 salesforce:Client? salesforceClientInstance = ();
@@ -14,24 +18,24 @@ function getSalesforceClient() returns salesforce:Client|error {
     }
     
     // Validate configuration with detailed error messages
-    if salesforceAPIBaseUrl == "" {
+    if salesforceBaseUrl == "" {
         return error("Salesforce baseUrl is not configured. Please add 'salesforceAPIBaseUrl' in Config.toml");
     }
-    if salesforceAPIClientId == "" {
+    if salesforceClientId == "" {
         return error("Salesforce clientId is not configured. Please add 'salesforceAPIClientId' in Config.toml");
     }
-    if salesforceAPIClientSecret == "" {
+    if salesforceClientSecret == "" {
         return error("Salesforce clientSecret is not configured. Please add 'salesforceAPIClientSecret' in Config.toml");
     }
-    if salesforceAPITokenUrl == "" {
+    if salesforceTokenUrl == "" {
         return error("Salesforce tokenUrl is not configured. Please add 'salesforceAPITokenUrl' in Config.toml");
     }
     
     // Trim whitespace from configuration values
-    string trimmedBaseUrl = salesforceAPIBaseUrl.trim();
-    string trimmedClientId = salesforceAPIClientId.trim();
-    string trimmedClientSecret = salesforceAPIClientSecret.trim();
-    string trimmedTokenUrl = salesforceAPITokenUrl.trim();
+    string trimmedBaseUrl = salesforceBaseUrl.trim();
+    string trimmedClientId = salesforceClientId.trim();
+    string trimmedClientSecret = salesforceClientSecret.trim();
+    string trimmedTokenUrl = salesforceTokenUrl.trim();
     
     // Convert Lightning URL to My Domain URL if needed
     if trimmedBaseUrl.includes("lightning.force.com") {
@@ -116,3 +120,27 @@ function getServiceNowClient() returns servicenow:Client|error {
     log:printInfo("ServiceNow client initialized successfully");
     return newClient;
 }
+
+final salesforce:Client salesforceClient = check new ({
+    baseUrl: salesforceBaseUrl,
+    auth: {
+        clientId: salesforceClientId,
+        clientSecret: salesforceClientSecret,
+        tokenUrl: salesforceTokenUrl
+    }
+});
+final servicenow:Client servicenowClient = check new ({
+    auth: {
+        username: servicenowUsername,
+        password: servicenowPassword
+    }
+}, servicenowBaseUrl);
+
+final pinecone:VectorStore pineconeVectorstore = check new (pineconeVectorStoreUrl, pineconeApiKey);
+final openai:EmbeddingProvider openaiEmbeddingProvider = check new (openaiApiKey, "text-embedding-3-small");
+final ai:VectorKnowledgeBase aiVectorknowledgebase = new (pineconeVectorstore, openaiEmbeddingProvider);
+final sendgrid:Client sendgridClient = check new ({
+    auth: {
+        token: sendgridApiToken
+    }
+});

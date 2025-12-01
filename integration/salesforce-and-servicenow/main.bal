@@ -1,3 +1,4 @@
+import ballerina/ai;
 import ballerina/http;
 import ballerina/log;
 import ballerinax/salesforce;
@@ -5,16 +6,21 @@ import ballerinax/servicenow;
 
 listener http:Listener OrderListener = new (samplePort);
 
+listener ai:Listener fullfillmentAgentListener = new (aiPort);
 
-function init() {
-    log:printInfo("Salesforce to ServiceNow service started");
-}
-service /'order on OrderListener {
-    resource function post chat(@http:Payload ChatRequest request) returns ChatResponse|error {
-        // string stringResult = check _fullfillmentAgentAgent.run(request.message, request.sessionId);
-        // return {message: stringResult};
-        return {message: "dummy payload from fullfillment agent service"};
+@http:ServiceConfig {
+    cors: {
+        allowOrigins: ["*"]
     }
+}
+service /orderAgent on fullfillmentAgentListener {
+    resource function post chat(@http:Payload ai:ChatReqMessage request) returns ai:ChatRespMessage|error {
+        string stringResult = check _fullfillmentAgentAgent.run(request.message, request.sessionId);
+        return {message: stringResult};
+    }
+}
+
+service /'order on OrderListener {
 
     # Validates order ID in Salesforce and creates a ServiceNow ticket with the provided payload
     # 
