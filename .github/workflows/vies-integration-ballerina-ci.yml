@@ -32,7 +32,7 @@ jobs:
       - name: Set up Ballerina
         uses: ballerina-platform/setup-ballerina@v1
         with:
-          version: 2201.12.7
+          version: 2201.13.1
 
       - name: Cache Ballerina Dependencies
         uses: actions/cache@v3
