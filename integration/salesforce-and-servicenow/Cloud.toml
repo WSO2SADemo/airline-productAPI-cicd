@@ -12,19 +12,19 @@ key_ref="servicenowPassword"
 secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
-key_ref="salesforceAPIClientId"
+key_ref="salesforceClientId"
 secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
-key_ref="salesforceAPIClientSecret"
+key_ref="salesforceClientSecret"
 secret_name="ballerina-secrets"
 
 [[cloud.config.envs]]
-key_ref="salesforceAPITokenUrl"
+key_ref="salesforceTokenUrl"
 config_name="ballerina-values"
 
 [[cloud.config.envs]]
-key_ref="salesforceAPIBaseUrl"
+key_ref="salesforceBaseUrl"
 config_name="ballerina-values"
 
 [[cloud.config.envs]]
