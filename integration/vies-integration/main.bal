@@ -2,7 +2,7 @@ import ballerina/http;
 import ballerina/log;
 
 // Service to receive SAP-MDM requests and forward to VIES
-service /sap on sapMdmListener {
+service /sapToVies on sapMdmListener {
     
     // Resource to validate VAT number
     resource function post checkVat(@http:Payload SapMdmVatRequest request) returns SapMdmVatResponse|http:InternalServerError {
