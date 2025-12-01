@@ -1,8 +1,8 @@
 import ballerina/ai;
 import ballerina/http;
 
-listener http:Listener fullfillmentAgentListener = new (aiPort);
-// listener ai:Listener fullfillmentAgentListener = new (aiPort);
+// listener http:Listener fullfillmentAgentListener = new (aiPort);
+listener ai:Listener fullfillmentAgentListener = new (aiPort);
 
 @http:ServiceConfig {
     cors: {
