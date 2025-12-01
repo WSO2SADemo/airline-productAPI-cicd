@@ -64,7 +64,7 @@ jobs:
       - name: 📦 Push Docker Image to Registry
         run: |
           # Pushes the image tag defined in your Deployment manifest (airlineservice-deployment)
-          IMAGE_NAME="ramilu90/vies_integration:1.0.0"
+          IMAGE_NAME="ramilu90/vies_integration:1.0.1"
           echo "Pushing image: ${IMAGE_NAME}"
           docker push ${IMAGE_NAME}
 
