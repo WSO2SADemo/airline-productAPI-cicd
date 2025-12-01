@@ -1,4 +1,4 @@
-name: Ballerina - Prod - SFandSN Pipeline
+name: Ballerina - Prod - vies Pipeline
 
 on:
   push:
