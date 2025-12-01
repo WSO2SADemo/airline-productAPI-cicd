@@ -5,19 +5,19 @@ tag="2.0.0"
 
 [[cloud.secret.envs]]
 key_ref="servicenowUsername"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="servicenowPassword"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="salesforceAPIClientId"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="salesforceAPIClientSecret"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.config.envs]]
 key_ref="salesforceAPITokenUrl"

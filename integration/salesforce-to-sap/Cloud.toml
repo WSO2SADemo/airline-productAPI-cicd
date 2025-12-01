@@ -12,31 +12,31 @@ tag="1.0.4"
 
 [[cloud.secret.envs]]
 key_ref="s4hanaClientConfigUsername"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="s4hanaClientConfigPassword"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="sfListenerConfigPassword"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="sfListenerConfigUsername"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="sfClientConfigClientId"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="sfClientConfigClientSecret"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.secret.envs]]
 key_ref="sfClientConfigRefreshToken"
-secret_name="salesforce-sap-secrets"
+secret_name="ballerina-secrets"
 
 [[cloud.config.envs]]
 key_ref="sfClientConfigRefreshUrl"
