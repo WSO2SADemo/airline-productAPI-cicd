@@ -4,4 +4,4 @@ import ballerina/http;
 listener http:Listener sapMdmListener = new (servicePort);
 
 // HTTP client for VIES SOAP service
-final http:Client viesClient = check new (viesServiceUrl, timeout = 30);
+final http:Client viesClient = check new (viesServiceUrl, {timeout: 30});

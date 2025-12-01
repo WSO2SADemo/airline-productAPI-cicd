@@ -6,7 +6,7 @@ function processVatValidation(SapMdmVatRequest sapRequest) returns SapMdmVatResp
     xml soapRequest = transformToViesSoapRequest(sapRequest);
     
     // Send SOAP request to VIES service
-    http:Response viesResponse = check viesClient->post("", soapRequest, headers = {
+    http:Response viesResponse = check viesClient->post("", soapRequest, {
         "Content-Type": "text/xml;charset=UTF-8",
         "SOAPAction": ""
     });
@@ -26,7 +26,7 @@ function processVatApproxValidation(SapMdmVatApproxRequest sapRequest) returns S
     xml soapRequest = transformToViesApproxSoapRequest(sapRequest);
     
     // Send SOAP request to VIES service
-    http:Response viesResponse = check viesClient->post("", soapRequest, headers = {
+    http:Response viesResponse = check viesClient->post("", soapRequest, {
         "Content-Type": "text/xml;charset=UTF-8",
         "SOAPAction": ""
     });
