@@ -1,0 +1,8 @@
+[package]
+org = "ramindu"
+name = "vies_integration"
+version = "0.1.0"
+title = "vies-integration"
+
+[build-options]
+cloud = "k8s"
