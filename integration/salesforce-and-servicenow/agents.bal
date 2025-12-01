@@ -46,11 +46,12 @@ final ai:Agent _fullfillmentAgentAgent = check new (
 # - Product details for each order item
 # - Quantity and pricing information
 # Use this for bulk order analysis and reporting
+# + accountId - Optional Salesforce Account ID to filter orders. If not provided, uses the configured default account ID
 # + return - Stream of detailed order records with product information or an error if the query fails
 @ai:AgentTool
 @display {label: "", iconPath: "https://bcentral-packageicons.azureedge.net/images/ballerinax_salesforce_8.2.0.png"}
-isolated function getAllOrdersTool() returns stream<record {|anydata...;|}, error?>|error {
-    string soql = "SELECT Id, OrderNumber, AccountId, Status, TotalAmount, CreatedDate, EffectiveDate, (SELECT Id, Quantity, UnitPrice, TotalPrice, PricebookEntry.Product2.Name, PricebookEntry.Product2.ProductCode, PricebookEntry.Product2.Description FROM OrderItems) FROM Order WHERE AccountId = '" + salesforceAccountId + "'";
+isolated function getAllOrdersTool(string accountId = salesforceAccountId) returns stream<record {|anydata...;|}, error?>|error {
+    string soql = "SELECT Id, OrderNumber, AccountId, Status, TotalAmount, CreatedDate, EffectiveDate, (SELECT Id, Quantity, UnitPrice, TotalPrice, PricebookEntry.Product2.Name, PricebookEntry.Product2.ProductCode, PricebookEntry.Product2.Description FROM OrderItems) FROM Order WHERE AccountId = '" + accountId + "'";
     stream<record {|anydata...;|}, error?> streamReturntypeError = check salesforceClient->query(soql);
     return streamReturntypeError;
 }
