@@ -1,8 +1,8 @@
-# [ballerinax.wso2.apim.catalog]
-# serviceUrl="https://localhost:9444/api/am/service-catalog/v1"
-# tokenUrl="https://localhost:9444/oauth2/token"
-# username="admin"
-# password="admin"
-# clientId="VdSxlKQDJ5ATMSkh94wR0qCrc7Aa"
-# clientSecret="8X0uXfa56HqetD9fWfb9B86GjOEa"
+[ballerinax.wso2.apim.catalog]
+serviceUrl="https://sf-to-serviceno.ballerina.svc.cluster.local:443/api/am/service-catalog/v1"
+tokenUrl="https://sf-to-serviceno.ballerina.svc.cluster.local:443/oauth2/token"
+username="admin"
+password="admin"
+clientId="y8kaIvN8Swh_a_j2JCOlFQRi_YIa"
+clientSecret="TFfhKlVlzyzZB67MJui8Kv0Gx9ka"
 
