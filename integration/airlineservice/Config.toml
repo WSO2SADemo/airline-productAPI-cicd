@@ -1,6 +1,6 @@
 [ballerinax.wso2.apim.catalog]
-serviceUrl="https://acp-wso2am-acp-service.apim-cp.svc.cluster.local:443/api/am/service-catalog/v1"
-tokenUrl="https://acp-wso2am-acp-service.apim-cp.svc.cluster.local:443/oauth2/token"
+serviceUrl="https://acp-wso2am-acp-service.apim-cp.svc.cluster.local:9443/api/am/service-catalog/v1"
+tokenUrl="https://acp-wso2am-acp-service.apim-cp.svc.cluster.local:9443/oauth2/token"
 username="admin"
 password="admin"
 clientId="y8kaIvN8Swh_a_j2JCOlFQRi_YIa"
