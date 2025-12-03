@@ -2,8 +2,8 @@ type: api
 version: v4.5.0
 data:
   id: 9843f3f8-7765-4e95-91a6-0549e4003cd3
-  name: orgAPI
-  context: /orgapi
+  name: org1API
+  context: /org1api
   version: 1.0.0
   provider: admin
   lifeCycleStatus: PUBLISHED

@@ -12,7 +12,7 @@ service /airline on apiListener {
         json todos = [
             {
                 "id": 1,
-                "name": "Test Service Response 2",
+                "name": "Test Service Response 200",
                 "status": "OPEN"
             }
         ];
