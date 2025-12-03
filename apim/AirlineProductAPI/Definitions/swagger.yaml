@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: airlineAPI
+  title: orgAPI
   version: 1.0.0
 servers:
  -
@@ -80,7 +80,7 @@ x-wso2-sandbox-endpoints:
   urls:
    - http://airlineservice.ballerina.svc.cluster.local:8080/airline
   type: http
-x-wso2-basePath: /airlineapi/1.0.0
+x-wso2-basePath: /orgapi/1.0.0
 x-wso2-transports:
  - http
  - https
