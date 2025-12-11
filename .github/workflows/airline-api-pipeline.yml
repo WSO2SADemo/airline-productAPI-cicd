@@ -17,13 +17,7 @@ jobs:
 
       - name: Add etc/hosts entry for airbus.am.wso2.com 🌐
         run: |
-          # Format: IP Address    Hostname(s)
-          # 'tee -a' appends the line to /etc/hosts using sudo privileges.
           echo '135.235.250.243 airbus.am.wso2.com' | sudo tee -a /etc/hosts
-          
-          # Optional: Verify the entry
-          echo "Hosts file content after addition:"
-          cat /etc/hosts
 
       - name: Install apictl
         run: |
@@ -40,15 +34,43 @@ jobs:
         run: |
           apictl login prod -u ${{ secrets.APIM_USERNAME }} -p ${{ secrets.APIM_PASSWORD }} --insecure
 
+      # -------------------------------------------------------------
+      # NEW STEP: Check Existence
+      # -------------------------------------------------------------
+      - name: Check if API Exists in Prod
+        id: check_api
+        run: |
+          # Query for the API by name (ensure this matches the name in api.yaml)
+          # Assuming API Name is 'AirlineProductAPI'
+          EXISTING_API=$(apictl get apis -e prod -q name:AirlineProductAPI --insecure --format json | jq -r '.count')
+          
+          if [ "$EXISTING_API" -gt "0" ]; then
+            echo "API found. A new revision will be created."
+            echo "api_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "API not found. A new API will be created."
+            echo "api_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      # -------------------------------------------------------------
+      # MODIFIED STEP: Import with logic logging
+      # -------------------------------------------------------------
       - name: Import API to Prod
         run: |
+          if [ "${{ steps.check_api.outputs.api_exists }}" == "true" ]; then
+             echo "🚀 Updating existing API and creating a new Revision..."
+          else
+             echo "🆕 Creating fresh API..."
+          fi
+
+          # The --update flag is crucial here. 
+          # It tells WSO2: "If exists, create new revision. If not, create new API."
           apictl import api -f apim/AirlineProductAPI/ -e prod --preserve-provider=false --update --insecure 
 
       - name: Run Tests (Optional)
         run: |
-          apictl get apis -e prod --insecure | awk 'NR>1 {print}' | grep -E "org1API" || {
-            echo "airlineAPI not found in Publisher (prod)."
+          apictl get apis -e prod --insecure | grep "AirlineProductAPI" || {
+            echo "AirlineProductAPI not found in Publisher (prod)."
             exit 1
           }
-          echo "airlineAPI is present in Publisher (prod)"
-          
+          echo "AirlineProductAPI is present in Publisher (prod)"
