@@ -46,3 +46,7 @@ config_name="ballerina-values"
 [[cloud.config.envs]]
 key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_CONTROLPLANE_MGTAPIURL"
 config_name="ballerina-values"
+
+[[cloud.config.envs]]
+key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_CONTROLPLANE_NODEID"
+config_name="ballerina-values"
