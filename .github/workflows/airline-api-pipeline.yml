@@ -69,8 +69,27 @@ jobs:
 
       - name: Run Tests (Optional)
         run: |
-          apictl get apis -e prod --insecure | grep "org1API" || {
-            echo "org1API not found in Publisher (prod)."
+          found=false
+          # Loop 3 times
+          for i in {1..3}; do
+            echo "Attempt $i: Checking for org1API..."
+            
+            # -q means quiet mode (don't output the line, just return true/false)
+            if apictl get apis -e prod --insecure | grep -q "org1API"; then
+              echo "✅ org1API is present in Publisher (prod)"
+              found=true
+              break
+            fi
+            
+            echo "⚠️ API not found yet. Waiting 2 seconds..."
+            sleep 2
+          done
+
+          # Final check
+          if [ "$found" = false ]; then
+            echo "❌ org1API not found in Publisher (prod) after 3 attempts."
+            # List all APIs to see what IS there (helps debugging)
+            echo "Available APIs were:"
+            apictl get apis -e prod --insecure
             exit 1
-          }
-          echo "org1API is present in Publisher (prod)"
+          fi
