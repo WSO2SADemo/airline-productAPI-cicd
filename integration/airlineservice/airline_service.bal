@@ -7,6 +7,12 @@ listener http:Listener apiListener = new (airlineServicePort);
 
 service /airline on apiListener {
 
+    function init() {
+        log:printError("Initialize service airline");
+        log:printError("Initialize service airline with service URL: " + scServiceUrl);
+        
+    }
+
     // Todo resources
     resource function get test() returns json {
         json todos = [
