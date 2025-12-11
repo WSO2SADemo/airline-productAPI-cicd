@@ -10,7 +10,6 @@ service /airline on apiListener {
     function init() {
         log:printError("Initialize service airline");
         log:printError("Initialize service airline with service URL: " + scServiceUrl);
-        
     }
 
     // Todo resources
@@ -28,6 +27,7 @@ service /airline on apiListener {
     // Get customer profile with loyalty information
     resource function get customers/[string customerId]() returns Customer|http:NotFound|http:InternalServerError {
         // Fetch customers from mock API
+        log:printInfo("get customers/[string customerId] invoked", 'customerId = customerId);
         json[]|error response = mockApiClient->get(path = "/");
         if response is error {
             log:printError("Error calling mock API", 'error = response);
@@ -41,7 +41,7 @@ service /airline on apiListener {
                 log:printError("Error parsing customer data", 'error = customer);
                 continue;
             }
-            log:printError("ඡarsing customer data", 'customer = customer);
+            log:printError("parsing customer data", 'customer = customer);
             if customer.customerId == customerId {
                 return customer;
             }
@@ -52,10 +52,12 @@ service /airline on apiListener {
     }
 
     resource function get newresource() returns string {
+        log:printInfo("get newresource()");
         return "new resource payload";
     }
 
     resource function get customers() returns Customer[]|http:InternalServerError {
+        log:printInfo("get customers()");
         // Fetch customers from mock API
         json[]|error response = mockApiClient->get(path = "/");
         if response is error {
@@ -77,6 +79,7 @@ service /airline on apiListener {
 
     // Health check endpoint
     resource function get health() returns json {
+        log:printInfo("get health()");
         return {status: "UP", serviceName: "Unified API Service"};
     }
 }
