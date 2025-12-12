@@ -1,6 +1,6 @@
 import ballerina/http;
 import ballerina/log;
-import ballerinax/wso2.apim.catalog as _;
+// import ballerinax/wso2.apim.catalog as _;
 import ballerinax/wso2.controlplane as _;
 
 // Unified API Service
