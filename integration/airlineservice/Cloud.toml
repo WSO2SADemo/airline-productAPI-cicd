@@ -35,7 +35,9 @@ secret_name="ballerina-secrets"
 key_ref="BAL_CONFIG_DATA"
 config_name="ballerina-values"
 
-
+[[cloud.config.envs]]
+key_ref="BAL_CONFIG_VAR_BALLERINA_HTTP_TRACELOGCONSOLE"
+config_name="ballerina-values"
 # [[cloud.config.envs]]
 # key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_CONTROLPLANE_DASHBOARD_URL"
 # config_name="ballerina-values"
