@@ -7,29 +7,29 @@ tag="latest"
 key_ref="MOCK_API_BASE_URL"
 config_name="ballerina-values"
 
-[[cloud.config.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_SERVICEURL"
-config_name="ballerina-values"
+# [[cloud.config.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_SERVICEURL"
+# config_name="ballerina-values"
 
-[[cloud.config.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_TOKENURL"
-config_name="ballerina-values"
+# [[cloud.config.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_TOKENURL"
+# config_name="ballerina-values"
 
-[[cloud.secret.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_USERNAME"
-secret_name="ballerina-secrets"
+# [[cloud.secret.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_USERNAME"
+# secret_name="ballerina-secrets"
 
-[[cloud.secret.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_PASSWORD"
-secret_name="ballerina-secrets"
+# [[cloud.secret.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_PASSWORD"
+# secret_name="ballerina-secrets"
 
-[[cloud.secret.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_CLIENTID"
-secret_name="ballerina-secrets"
+# [[cloud.secret.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_CLIENTID"
+# secret_name="ballerina-secrets"
 
-[[cloud.secret.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_CLIENTSECRET"
-secret_name="ballerina-secrets"
+# [[cloud.secret.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_CLIENTSECRET"
+# secret_name="ballerina-secrets"
 
 [[cloud.config.envs]]
 key_ref="BAL_CONFIG_DATA"
