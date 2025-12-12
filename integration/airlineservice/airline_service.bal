@@ -5,7 +5,7 @@ import ballerinax/wso2.controlplane as _;
 
 // Unified API Service
 listener http:Listener apiListener = new (airlineServicePort);
-
+configurable string airlineServicePort = "8080";
 service /airline on apiListener {
 
     function init() {

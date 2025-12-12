@@ -32,8 +32,13 @@ key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_APIM_CATALOG_CLIENTSECRET"
 secret_name="ballerina-secrets"
 
 [[cloud.config.envs]]
-key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_CONTROLPLANE_DASHBOARD"
+key_ref="BAL_CONFIG_DATA"
 config_name="ballerina-values"
+
+
+# [[cloud.config.envs]]
+# key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_CONTROLPLANE_DASHBOARD_URL"
+# config_name="ballerina-values"
 
 # [[cloud.config.envs]]
 # key_ref="BAL_CONFIG_VAR_BALLERINAX_WSO2_CONTROLPLANE_DASHBOARD_HEARTBEATINTERVAL"
