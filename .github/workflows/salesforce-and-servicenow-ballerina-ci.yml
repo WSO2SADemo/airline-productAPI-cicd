@@ -115,6 +115,19 @@ jobs:
           echo "Applying new resources from ${K8S_DIR}..."
           kubectl apply -f ${K8S_DIR} -n ${{ env.BALLERINA_NAMESPACE }}
 
+
+      - name: 🔧 Patch Deployment with Volume Mounts
+        run: |
+          NAMESPACE="${{ env.BALLERINA_NAMESPACE }}"
+          DEPLOYMENT="sf-to-serviceno-deployment"
+          
+          echo "Waiting for deployment to be available..."
+          kubectl wait --for=condition=Available=False deployment/$DEPLOYMENT -n $NAMESPACE --timeout=10s || true
+
+          # 1. Dynamically find the container name (Prevents "image required" error)
+          CONTAINER_NAME=$(kubectl get deployment $DEPLOYMENT -n $NAMESPACE -o jsonpath='{.spec.template.spec.containers[0].name}')
+          echo "Detected Container Name: $CONTAINER_NAME"
+
           # 2. Apply the Patch
           echo "Patching svc for ballerina service management api..."
           kubectl patch svc sf-to-serviceno -n ballerina --type='json' -p='[{"op": "add", "path": "/spec/ports/-", "value": {"name": "management", "port": 9264, "targetPort": 9264, "protocol": "TCP"}}]'
