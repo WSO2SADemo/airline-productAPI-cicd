@@ -4,8 +4,8 @@ import ballerinax/wso2.apim.catalog as _;
 import ballerinax/wso2.controlplane as _;
 
 // Unified API Service
-listener http:Listener apiListener = new (airlineServicePort);
-service /airline on apiListener {
+// listener http:Listener apiListener = new (airlineServicePort);
+service /airline on new http:Listener(8080) {
 
     function init() {
         log:printError("Initialize service airline");
