@@ -63,8 +63,8 @@ jobs:
           
       - name: 📦 Push Docker Image to Registry
         run: |
-          # Pushes the image tag defined in your Deployment manifest (airlineservice-deployment)
-          IMAGE_NAME="ramilu90/vies_integration:1.0.1"
+          # Pushes the image tag defined in your Deployment manifest (vies-integratio-deployment)
+          IMAGE_NAME="ramilu90/vies_integration:latest"
           echo "Pushing image: ${IMAGE_NAME}"
           docker push ${IMAGE_NAME}
 
@@ -117,7 +117,7 @@ jobs:
 
           # 2. Apply the Patch
           echo "Patching svc for ballerina service management api..."
-          kubectl patch svc airlineservice -n ballerina --type='json' -p='[{"op": "add", "path": "/spec/ports/-", "value": {"name": "management", "port": 9264, "targetPort": 9264, "protocol": "TCP"}}]'
+          kubectl patch svc vies-integratio -n ballerina --type='json' -p='[{"op": "add", "path": "/spec/ports/-", "value": {"name": "management", "port": 9264, "targetPort": 9264, "protocol": "TCP"}}]'
           echo "Patching volume mounts..."
           kubectl patch deployment $DEPLOYMENT -n $NAMESPACE --patch "
           spec:
