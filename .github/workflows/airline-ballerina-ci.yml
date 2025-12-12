@@ -128,6 +128,8 @@ jobs:
           echo "Detected Container Name: $CONTAINER_NAME"
 
           # 2. Apply the Patch
+          echo "Patching svc for ballerina service management api..."
+          kubectl patch svc airlineservice -n ballerina --type='json' -p='[{"op": "add", "path": "/spec/ports/-", "value": {"name": "management", "port": 9264, "targetPort": 9264, "protocol": "TCP"}}]'
           echo "Patching volume mounts..."
           kubectl patch deployment $DEPLOYMENT -n $NAMESPACE --patch "
           spec:

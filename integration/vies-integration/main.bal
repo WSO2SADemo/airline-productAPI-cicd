@@ -1,5 +1,6 @@
 import ballerina/http;
 import ballerina/log;
+import ballerinax/wso2.controlplane as _;
 
 // Service to receive SAP-MDM requests and forward to VIES
 service /sapToVies on sapMdmListener {

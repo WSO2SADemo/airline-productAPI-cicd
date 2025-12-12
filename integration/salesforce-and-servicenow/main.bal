@@ -2,6 +2,7 @@ import ballerina/http;
 import ballerina/log;
 import ballerinax/salesforce;
 import ballerinax/servicenow;
+import ballerinax/wso2.controlplane as _;
 
 listener http:Listener OrderListener = new (samplePort);
 

@@ -49,3 +49,7 @@ config_name="ballerina-values"
 [[cloud.config.envs]]
 key_ref="s4hanaClientConfigHostname"
 config_name="ballerina-values"
+
+[[cloud.config.envs]]
+key_ref="BAL_CONFIG_DATA"
+config_name="ballerina-values-sf-to-sap"
